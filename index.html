@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SERGICULERS · Chollos</title>
+<meta name="description" content="Los mejores chollos de ropa, zapatillas y camisetas de fútbol. Código SERGICULER.">
+<meta property="og:title" content="SERGICULERS · Chollos">
+<meta property="og:description" content="Ropa, zapatillas y camisetas de fútbol con el código SERGICULER.">
+<meta name="theme-color" content="#0e0e11">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+<style>
+  :root {
+    --bg: #0b0b0e; --card: #17171c; --card2: #1f1f26; --line: #2a2a33; --text: #f5f5f6; --muted: #a1a1aa;
+    --accent: #ffd60a; --on-accent: #111; --radius: 16px;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; overflow-x: clip; }
+  .hero { overflow-x: clip; overflow-y: visible; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* Cabecera: se compacta y gana sombra al hacer scroll */
+  /* Sin backdrop-filter: desenfocar lo que pasa por debajo en cada frame es lo que más tirones daba al hacer scroll */
+  header { position: sticky; top: 0; z-index: 20; background: rgba(11,11,14,.96); border-bottom: 1px solid transparent; transition: border-color .3s, box-shadow .3s; }
+  header.scroll { border-color: var(--line); box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; transition: padding .3s var(--ease); }
+  header.scroll .top { padding: 9px 0; }
+  .logo { font-weight: 900; font-size: 20px; letter-spacing: .5px; }
+  .logo span { color: var(--accent); }
+  .tg { background: var(--accent); color: var(--on-accent); font-weight: 800; padding: 9px 15px; border-radius: 999px; white-space: nowrap; font-size: 14px; transition: transform .2s var(--ease), box-shadow .2s; }
+  .tg:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 20px rgba(255,214,10,.35); }
+
+  /* Portada */
+  .hero { position: relative; padding: 36px 0 12px; }
+  .hero::before { content: ""; position: absolute; inset: -80px -40% auto; height: 340px; z-index: -1;
+    background: radial-gradient(closest-side, rgba(255,214,10,.22), transparent 70%); animation: brillo 9s ease-in-out infinite alternate; will-change: transform; pointer-events: none; }
+  @keyframes brillo { from { transform: translateX(-12%) scale(1); } to { transform: translateX(12%) scale(1.15); } }
+  .etiqueta { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent); background: rgba(255,214,10,.1); border: 1px solid rgba(255,214,10,.3); padding: 5px 12px; border-radius: 999px; }
+  .punto { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: latido 1.6s infinite; }
+  @keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(255,214,10,.7); } 70% { box-shadow: 0 0 0 10px rgba(255,214,10,0); } 100% { box-shadow: 0 0 0 0 rgba(255,214,10,0); } }
+  .hero h1 { font-size: clamp(28px, 7vw, 48px); line-height: 1.05; font-weight: 900; margin-top: 14px; letter-spacing: -.5px; }
+  .hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent), #ffb300, var(--accent)); background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: brilloTexto 4s linear infinite; }
+  @keyframes brilloTexto { to { background-position: 200% center; } }
+  .hero p { color: var(--muted); margin-top: 10px; max-width: 560px; }
+  .datos { display: flex; gap: 22px; margin-top: 18px; flex-wrap: wrap; }
+  .datos b { display: block; font-size: 22px; font-weight: 900; }
+  .datos span { color: var(--muted); font-size: 12px; }
+
+  /* Contador de seguidores */
+  .comunidad { margin-top: 22px; background: linear-gradient(135deg, #1c1c22, #141418); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+  .total { width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 18px; background: none; border: 0; color: inherit; cursor: pointer; text-align: left; }
+  .total .cifra { font-size: clamp(38px, 11vw, 64px); font-weight: 900; line-height: 1; letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
+  .total .que { color: var(--muted); font-size: 14px; margin-top: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .directo { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; letter-spacing: .5px; color: #ff4d4d; background: rgba(255,77,77,.12); padding: 3px 8px; border-radius: 999px; }
+  .directo i { width: 7px; height: 7px; border-radius: 50%; background: #ff4d4d; animation: parpadeo 1.4s ease-in-out infinite; }
+  @keyframes parpadeo { 50% { opacity: .25; } }
+  .iconos { display: flex; margin-left: auto; }
+  .iconos span { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #1a1a20; display: grid; place-items: center; margin-left: -8px; }
+  .iconos svg { width: 17px; height: 17px; }
+  .giro { width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--card2); display: grid; place-items: center; transition: transform .35s var(--ease); }
+  .total[aria-expanded="true"] .giro { transform: rotate(180deg); }
+  .desglose { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease); }
+  .desglose.abierto { grid-template-rows: 1fr; }
+  .desglose > div { overflow: hidden; }
+  .red { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--line);
+    opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .3s var(--ease), background .2s; }
+  .desglose.abierto .red { opacity: 1; transform: none; }
+  .desglose.abierto .red:nth-child(2) { transition-delay: .06s; }
+  .desglose.abierto .red:nth-child(3) { transition-delay: .12s; }
+  .red:hover { background: rgba(255,255,255,.03); }
+  .red .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; }
+  .red .ico svg { width: 22px; height: 22px; }
+  .red b { font-size: 15px; }
+  .red small { display: block; color: var(--muted); font-size: 12px; }
+  .red .num { font-size: 20px; font-weight: 900; font-variant-numeric: tabular-nums; text-align: right; }
+  .red .barra-red { grid-column: 2 / 4; height: 5px; border-radius: 9px; background: var(--card2); overflow: hidden; }
+  .red .barra-red i { display: block; height: 100%; border-radius: inherit; transform-origin: left; transform: scaleX(0); transition: transform .8s var(--ease) .15s; }
+  .desglose.abierto .barra-red i { transform: scaleX(var(--k)); }
+  .tiktok { background: #000; box-shadow: inset 0 0 0 1px #333; }
+  .youtube { background: #ff0033; }
+  .instagram { background: radial-gradient(circle at 30% 110%, #ffd776 0%, #f77737 25%, #e1306c 55%, #833ab4 85%); }
+  .comunidad .nota { color: var(--muted); font-size: 11px; padding: 10px 18px 14px; border-top: 1px solid var(--line); }
+
+  .codigo { margin-top: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: linear-gradient(135deg, var(--card2), var(--card)); border: 1px dashed var(--accent); border-radius: var(--radius); padding: 14px 16px; }
+  .codigo b { font-size: 24px; letter-spacing: 3px; color: var(--accent); }
+  .codigo small { color: var(--muted); flex: 1 1 180px; }
+  .btn { background: var(--accent); color: var(--on-accent); border: 0; font-weight: 800; padding: 11px 16px; border-radius: 12px; cursor: pointer; font-size: 14px; transition: transform .15s var(--ease), box-shadow .2s; }
+  .btn:hover { box-shadow: 0 6px 20px rgba(255,214,10,.3); }
+  .btn:active { transform: scale(.95); }
+
+  /* Filtros */
+  .barra { position: sticky; top: 58px; z-index: 10; background: linear-gradient(var(--bg) 75%, transparent); padding: 14px 0 8px; margin-top: 8px; }
+  .filtros { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .filtros::-webkit-scrollbar { display: none; }
+  .chip { flex: none; background: var(--card); border: 1px solid var(--line); color: var(--text); padding: 8px 14px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background .25s, color .25s, border-color .25s, transform .15s; }
+  .chip:hover { border-color: #444; }
+  .chip:active { transform: scale(.94); }
+  .chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .buscar { width: 100%; margin-top: 10px; background: var(--card); border: 1px solid var(--line); color: var(--text); padding: 12px 14px 12px 40px; border-radius: 12px; font-size: 15px; transition: border-color .2s, box-shadow .2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m13 13 4 4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: 14px center; }
+  .buscar:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,214,10,.2); }
+  .cuenta { color: var(--muted); font-size: 13px; padding: 8px 0 0; }
+
+  /* Rejilla de productos */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 14px; padding: 10px 0 36px; }
+  /* Solo se animan transform y opacity (van por la GPU); la sombra es una capa aparte que solo cambia de opacidad */
+  .card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; cursor: pointer;
+    opacity: 0; transform: translateY(18px); transition: transform .35s var(--ease), border-color .25s; }
+  .card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 14px 34px rgba(0,0,0,.55); opacity: 0; transition: opacity .35s; pointer-events: none; z-index: -1; }
+  .card.ver { opacity: 1; transform: none; transition: opacity .45s var(--ease), transform .45s var(--ease), border-color .25s; }
+  @media (hover: hover) {
+    .card.ver:hover { transform: translateY(-4px); border-color: rgba(255,214,10,.6); }
+    .card:hover::after { opacity: 1; }
+    .card:hover .foto.ok img { transform: scale(1.06); }
+  }
+  .foto { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: #1d1d23; }
+  .foto::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%); transform: translateX(-100%); animation: brilloCarga 1.2s linear infinite; }
+  .foto.ok::before { display: none; }
+  @keyframes brilloCarga { to { transform: translateX(100%); } }
+  .foto img { position: relative; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity .4s, transform .5s var(--ease); }
+  .foto.ok img { opacity: 1; }
+  .insignia { position: absolute; top: 8px; left: 8px; font-size: 11px; font-weight: 800; background: rgba(0,0,0,.72); color: #fff; padding: 3px 8px; border-radius: 999px; }
+  .info { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .tit { font-weight: 700; font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .fila { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; }
+  .precio { color: var(--accent); font-weight: 900; font-size: 18px; }
+  .flecha { width: 30px; height: 30px; border-radius: 50%; background: var(--card2); display: grid; place-items: center; transition: background .25s, transform .25s var(--ease); }
+  @media (hover: hover) { .card:hover .flecha { background: var(--accent); color: var(--on-accent); transform: rotate(-45deg); } }
+  .vacio { color: var(--muted); padding: 50px 0; text-align: center; grid-column: 1 / -1; }
+
+  /* Vista rápida */
+  dialog { border: 0; padding: 0; background: transparent; color: var(--text); max-width: min(920px, 100vw); width: 100%; max-height: 100dvh; }
+  dialog::backdrop { background: rgba(0,0,0,.8); animation: aparece .3s; }
+  @keyframes aparece { from { opacity: 0; } }
+  .vista { background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr; margin: 16px; position: relative; }
+  dialog[open] .vista { animation: sube .4s var(--ease); }
+  @keyframes sube { from { opacity: 0; transform: translateY(24px) scale(.97); } }
+  .vista img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .vista .txt { padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+  .vista h2 { font-size: 24px; line-height: 1.15; }
+  .vista .precio { font-size: 32px; }
+  .vista .tienda { color: var(--muted); font-size: 14px; }
+  .paso { background: var(--card2); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--muted); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .paso b { color: var(--accent); letter-spacing: 2px; font-size: 17px; }
+  .comprar { text-align: center; font-size: 16px; padding: 15px; margin-top: auto; }
+  .cerrar { position: absolute; top: 12px; right: 12px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 20px; cursor: pointer; transition: transform .2s; }
+  .cerrar:hover { transform: rotate(90deg); }
+  @media (max-width: 680px) {
+    /* En el móvil la ficha sube desde abajo, como una hoja */
+    dialog { margin: auto 0 0; max-width: 100vw; }
+    .vista { grid-template-columns: 1fr; margin: 0; border-radius: 22px 22px 0 0; max-height: 92dvh; overflow-y: auto; }
+    dialog[open] .vista { animation: hojaSube .45s var(--ease); }
+    @keyframes hojaSube { from { transform: translateY(100%); } }
+    .vista .txt { padding: 20px 16px 24px; }
+    .vista img { max-height: 52dvh; }
+  }
+
+  /* Bloque final y extras */
+  .unete { position: relative; overflow: hidden; background: var(--accent); color: var(--on-accent); border-radius: 22px; padding: 26px 22px; margin: 8px 0 26px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+  .unete::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%); transform: translateX(-100%); animation: barrido 3.5s ease-in-out infinite; }
+  @keyframes barrido { 60%, 100% { transform: translateX(100%); } }
+  .unete h2 { font-size: 22px; font-weight: 900; }
+  .unete p { font-size: 14px; opacity: .8; }
+  .unete a { position: relative; z-index: 1; background: var(--on-accent); color: var(--accent); font-weight: 800; padding: 13px 20px; border-radius: 12px; transition: transform .2s var(--ease); }
+  .unete a:hover { transform: scale(1.05); }
+  footer { color: var(--muted); font-size: 12px; padding: 0 0 40px; }
+  .arriba { position: fixed; right: 16px; bottom: 18px; z-index: 15; width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--accent); color: var(--on-accent); font-size: 20px; font-weight: 900; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,.5);
+    opacity: 0; transform: translateY(20px) scale(.8); pointer-events: none; transition: opacity .3s, transform .3s var(--ease); }
+  .arriba.si { opacity: 1; transform: none; pointer-events: auto; }
+  .aviso { position: fixed; left: 50%; bottom: 24px; z-index: 50; transform: translateX(-50%) translateY(100px); background: var(--text); color: var(--bg); padding: 11px 18px; border-radius: 12px; font-weight: 800; transition: transform .35s var(--ease); }
+  .aviso.si { transform: translateX(-50%) translateY(0); }
+
+  /* View Transitions solo para la foto que vuela a la ficha. La página no hace fundido: así no se mezclan
+     dos capturas de toda la rejilla (eso era lo que hacía que unas fotos se cruzasen con otras). */
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  ::view-transition-group(foto) { animation-duration: .42s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+  ::view-transition-old(foto), ::view-transition-new(foto) { animation-duration: .42s; height: 100%; object-fit: cover; }
+  .grid.sale { opacity: 0; transform: translateY(6px); transition: opacity .14s, transform .14s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .card { opacity: 1; transform: none; }
+    .foto img { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+<header id="cabecera">
+  <div class="wrap top">
+    <a class="logo" href="#">SERGI<span>CULERS</span></a>
+    <a class="tg" href="https://t.me/SERGICULERS" target="_blank" rel="noopener">Únete al Telegram</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="etiqueta"><span class="punto"></span>Chollos nuevos cada día</span>
+    <h1>Ropa, zapatillas y <em>camisetas de fútbol</em> a precio de chollo</h1>
+    <p>Todo lo que subo al canal, en un solo sitio. Toca un producto para verlo y comprarlo.</p>
+    <div class="datos">
+      <div><b id="nTotal">0</b><span>productos</span></div>
+      <div><b id="nFutbol">0</b><span>camisetas de fútbol</span></div>
+      <div><b>2</b><span>tiendas</span></div>
+    </div>
+    <section class="comunidad" id="comunidad" hidden>
+      <button type="button" class="total" id="total" aria-expanded="false" aria-controls="desglose">
+        <div>
+          <div class="cifra" id="cifraTotal">0</div>
+          <div class="que">seguidores en total <span class="directo"><i></i>EN DIRECTO</span></div>
+        </div>
+        <div class="iconos" id="iconos"></div>
+        <span class="giro" aria-hidden="true">⌄</span>
+      </button>
+      <div class="desglose" id="desglose"><div id="redes"></div></div>
+    </section>
+
+    <div class="codigo">
+      <b class="valor-codigo">SERGICULER</b>
+      <small>Pon este código al pagar para tener descuento.</small>
+      <button type="button" class="btn copiar">Copiar código</button>
+    </div>
+  </section>
+
+  <div class="barra">
+    <nav class="filtros" id="filtros" aria-label="Categorías"></nav>
+    <input class="buscar" id="buscar" type="search" placeholder="Busca: Madrid, Samba, North Face…" aria-label="Buscar productos">
+  </div>
+  <p class="cuenta" id="cuenta"></p>
+  <section class="grid" id="grid"></section>
+
+  <section class="unete">
+    <div>
+      <h2>No te pierdas ningún chollo</h2>
+      <p>Productos nuevos cada día en el canal de Telegram.</p>
+    </div>
+    <a href="https://t.me/SERGICULERS" target="_blank" rel="noopener">Unirme gratis →</a>
+  </section>
+  <footer>Algunos enlaces son de afiliado: si compras, me llevo una pequeña comisión sin que te cueste más.</footer>
+</main>
+
+<dialog id="vista" aria-labelledby="vTitulo">
+  <div class="vista">
+    <button type="button" class="cerrar" id="cerrar" aria-label="Cerrar">×</button>
+    <img id="vFoto" alt="">
+    <div class="txt">
+      <span class="tienda" id="vTienda"></span>
+      <h2 id="vTitulo"></h2>
+      <span class="precio" id="vPrecio"></span>
+      <div class="paso"><span>Al pagar pon el código<br><b class="valor-codigo">SERGICULER</b></span><button type="button" class="btn copiar">Copiar</button></div>
+      <a class="btn comprar" id="vComprar" target="_blank" rel="noopener sponsored">Ir a la tienda →</a>
+    </div>
+  </div>
+</dialog>
+
+<button type="button" class="arriba" id="arriba" aria-label="Volver arriba">↑</button>
+<div class="aviso" id="aviso" role="status">Código copiado ✔</div>
+
+<script>
+const PRODUCTOS = [{"t": "Camiseta España 2026 2ª equipación (versión fan)", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2026-spain-away-fan-version-football-jersey-1-1-thai-quality", "f": "img/101.jpg", "s": "cheapftball"}, {"t": "Camiseta España 26/27 \"Dos estrellas\" (versión jugador)", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2026-spain-away-player-version-football-jersey-1-1-thai-quality-ladx-ilbj", "f": "img/102.jpg", "s": "cheapftball"}, {"t": "Camiseta Real Madrid 26/27 edición especial bordada", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/real-madrid-2026-2027-home-fan-version-embroidered-football-jersey", "f": "img/103.jpg", "s": "cheapftball"}, {"t": "Camiseta Barça 26/27 1ª equipación (versión fan)", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-barcelona-home-fan-version-football-jersey-1-1-thai-quality", "f": "img/104.jpg", "s": "cheapftball"}, {"t": "Camiseta retro España 1996", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/1996-spain-home-retro-football-shirt", "f": "img/105.jpg", "s": "cheapftball"}, {"t": "Camiseta Atlético de Madrid 26/27 1ª equipación (versión jugador)", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-atletico-madrid-home-player-version-football-jersey-1-1-thai-quality", "f": "img/106.jpg", "s": "cheapftball"}, {"t": "Camiseta Messi edición especial 26/27", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-messi-special-edition-name-customized-football-1-1-thai-quality", "f": "img/107.jpg", "s": "cheapftball"}, {"t": "Camiseta Barça 26/27 2ª equipación (versión fan)", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-barcelona-away-fan-version-football-jersey-1-1-thai-quality", "f": "img/108.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Real Madrid 2011/12", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2011-2012-retro-real-madrid-home-y9tz", "f": "img/109.jpg", "s": "cheapftball"}, {"t": "Camiseta Betis 26/27 2ª equipación", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-real-betis-away-football-jersey-1-1-thai-quality", "f": "img/110.jpg", "s": "cheapftball"}, {"t": "Camiseta retro España 2010 2ª equipación", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2010-retro-spain-away-soccer-shirt", "f": "img/111.jpg", "s": "cheapftball"}, {"t": "Camiseta de entrenamiento Argentina 26/27", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27argentina-home-game-fan-version-football-jersey-1-1-thai-quality", "f": "img/112.jpg", "s": "cheapftball"}, {"t": "Camiseta Real Madrid 25/26 1ª equipación", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2025-2026-real-madrid-home-football-shirt-1-1-thai-quality-olmq", "f": "img/113.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Barça 2007/08", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2007-2008-retro-barcelona-home-football-shirt-1-1-thai-quality-jga6-oodl", "f": "img/114.jpg", "s": "cheapftball"}, {"t": "Camiseta Brasil 26/27 1ª equipación (versión fan)", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-brazil-home-football-jersey-fan-version-1-1-thai-quality", "f": "img/115.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Real Madrid 1998/2000 2ª equipación", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/1998-2000-retro-real-madrid-away", "f": "img/116.jpg", "s": "cheapftball"}, {"t": "Camiseta Barça 125 aniversario 25/26", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/25-26-barcelona-125th-anniversary-edition-thai-quality-1-1", "f": "img/117.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Atlético de Madrid 2004/05", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2004-2005-retro-atletico-madrid-home-soccer-jersey-1-1-thai-quality-wmwc", "f": "img/118.jpg", "s": "cheapftball"}, {"t": "Camiseta Francia 26/27 1ª equipación (versión fan)", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/26-27-france-home-stadium-fan-edition-football-jersey-1-1-thailand-quality", "f": "img/119.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Brasil 2002", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2002-retro-brazil-soccer-jersey-home-wcx8", "f": "img/120.jpg", "s": "cheapftball"}, {"t": "Camiseta Real Madrid 25/26 1ª equipación (versión jugador)", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2024-2025-player-version-real-madrid-home-soccer-jersey-6d4c", "f": "img/121.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Argentina 2006", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2006-retro-argentina-national-team-home-jersey", "f": "img/122.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Barça 2005/06 Champions", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2005-2006-retro-barcelona-home-football-shirt-uefa-champions-league-1-1-thai-quality", "f": "img/123.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Euskadi 93/94 verde", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/9394-basque-retro-green-football-shirt-1-1-thai-quality", "f": "img/124.jpg", "s": "cheapftball"}, {"t": "Camiseta Portugal 24/25 2ª equipación", "p": "15,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/2024-2025-portugal-away-football-shirt-1-1-thai-quality", "f": "img/125.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Francia 1998", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/1998-retro-france-home-football-shirt", "f": "img/126.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Manchester United 1990/92", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/1990-1992-retro-manchester-united-home-football-shirt-1-1-thai-quality", "f": "img/127.jpg", "s": "cheapftball"}, {"t": "Camiseta retro Argentina 1994 2ª equipación", "p": "20,95€", "c": "Fútbol", "u": "https://www.cheapftball.com/products/1994-retro-argentina-national-team-away-jersey", "f": "img/128.jpg", "s": "cheapftball"}, {"t": "The North Face", "p": "29€", "c": "Ropa", "u": "https://c.onlyaff.app/dNIYht", "f": "img/1.jpg", "s": "hacoo"}, {"t": "New Balance 574", "p": "29€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNIYyc", "f": "img/2.jpg", "s": "hacoo"}, {"t": "NIKE Air Jordan 1", "p": "33€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNIYP2", "f": "img/3.jpg", "s": "hacoo"}, {"t": "The North Face", "p": "52€", "c": "Ropa", "u": "https://c.onlyaff.app/dNIZ5Q", "f": "img/4.jpg", "s": "hacoo"}, {"t": "Polo Ralph Lauren", "p": "15€", "c": "Ropa", "u": "https://c.onlyaff.app/dNIZmM", "f": "img/5.jpg", "s": "hacoo"}, {"t": "Polo Ralph Lauren", "p": "23€", "c": "Ropa", "u": "https://c.onlyaff.app/dNIZDv", "f": "img/6.jpg", "s": "hacoo"}, {"t": "Zadig Voltaire", "p": "15€", "c": "Ropa", "u": "https://c.onlyaff.app/dNIZUe", "f": "img/7.jpg", "s": "hacoo"}, {"t": "Carolina Herrera", "p": "41€", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJ0bc", "f": "img/8.jpg", "s": "hacoo"}, {"t": "Jacquemus", "p": "19€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ0s9", "f": "img/9.jpg", "s": "hacoo"}, {"t": "ADIDAS R. Madrid “Platinium” 26/27", "p": "14€", "c": "Fútbol", "u": "https://c.onlyaff.app/dNJ0IQ", "f": "img/10.jpg", "s": "hacoo"}, {"t": "Carhartt", "p": "8€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ0Zy", "f": "img/11.jpg", "s": "hacoo"}, {"t": "The North Face", "p": "9€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ1gg", "f": "img/12.jpg", "s": "hacoo"}, {"t": "Tom Ford", "p": "7€", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJ1x0", "f": "img/13.jpg", "s": "hacoo"}, {"t": "DYSON “Supersonic”", "p": "16€", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJ1NG", "f": "img/14.jpg", "s": "hacoo"}, {"t": "ADIDAS Forum", "p": "37€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ1Ok", "f": "img/15.jpg", "s": "hacoo"}, {"t": "Converse", "p": "23€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ252", "f": "img/16.jpg", "s": "hacoo"}, {"t": "ADIDAS Spezial", "p": "20€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ2lT", "f": "img/17.jpg", "s": "hacoo"}, {"t": "Adidas Sl72 Rs", "p": "33€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ2CD", "f": "img/18.jpg", "s": "hacoo"}, {"t": "Polo Ralph Lauren", "p": "15€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ2Tm", "f": "img/19.jpg", "s": "hacoo"}, {"t": "Jacquemus", "p": "24€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ3a4", "f": "img/20.jpg", "s": "hacoo"}, {"t": "Balenciaga \"3Xl\"", "p": "54€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ3qM", "f": "img/21.jpg", "s": "hacoo"}, {"t": "ADIDAS \"Spezial\"", "p": "22€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ3Hu", "f": "img/22.jpg", "s": "hacoo"}, {"t": "Carhartt", "p": "34€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ3Ya", "f": "img/23.jpg", "s": "hacoo"}, {"t": "Ugg", "p": "47€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ4vD", "f": "img/25.jpg", "s": "hacoo"}, {"t": "ADIDAS \"Campus Denim\"", "p": "38€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJ4Mk", "f": "img/26.jpg", "s": "hacoo"}, {"t": "Cp Company", "p": "39€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ53u", "f": "img/27.jpg", "s": "hacoo"}, {"t": "The North Face", "p": "38€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ5ka", "f": "img/28.jpg", "s": "hacoo"}, {"t": "Bape", "p": "6€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ5AU", "f": "img/29.jpg", "s": "hacoo"}, {"t": "Corteiz", "p": "26€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJ5RF", "f": "img/30.jpg", "s": "hacoo"}, {"t": "The North Face", "p": "10€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJhbf", "f": "img/31.jpg", "s": "hacoo"}, {"t": "Patagonia", "p": "33€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJhs3", "f": "img/32.jpg", "s": "hacoo"}, {"t": "ADIDAS x Liverpool", "p": "13€", "c": "Fútbol", "u": "https://c.onlyaff.app/dNJhIO", "f": "img/33.jpg", "s": "hacoo"}, {"t": "Fred Perry", "p": "37€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJhZQ", "f": "img/34.jpg", "s": "hacoo"}, {"t": "Fred Perry", "p": "20€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJigS", "f": "img/35.jpg", "s": "hacoo"}, {"t": "DIESEL (conjunto)", "p": "22€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJixU", "f": "img/36.jpg", "s": "hacoo"}, {"t": "Patagonia", "p": "20€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJiOL", "f": "img/37.jpg", "s": "hacoo"}, {"t": "Heaven", "p": "25€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJj5x", "f": "img/38.jpg", "s": "hacoo"}, {"t": "ADIDAS Handball Spezial", "p": "22€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJjmf", "f": "img/39.jpg", "s": "hacoo"}, {"t": "ADIDAS \"Formotion\"", "p": "44€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJjCV", "f": "img/40.jpg", "s": "hacoo"}, {"t": "ADIDAS Samba x WALES BONNER", "p": "25€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJjTD", "f": "img/41.jpg", "s": "hacoo"}, {"t": "Carhartt", "p": "21€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJkal", "f": "img/42.jpg", "s": "hacoo"}, {"t": "NIKE x SUPREME", "p": "20€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJkr4", "f": "img/43.jpg", "s": "hacoo"}, {"t": "ADIDAS \"Samba Animal\"", "p": "21€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJkHL", "f": "img/44.jpg", "s": "hacoo"}, {"t": "ADIDAS “Samba”", "p": "17€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJkYt", "f": "img/45.jpg", "s": "hacoo"}, {"t": "Ugg", "p": "25€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJlfa", "f": "img/46.jpg", "s": "hacoo"}, {"t": "Ugg", "p": "28€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJlvQ", "f": "img/47.jpg", "s": "hacoo"}, {"t": "Ugg", "p": "26€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJlMy", "f": "img/48.jpg", "s": "hacoo"}, {"t": "Ugg", "p": "29€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJm3i", "f": "img/49.jpg", "s": "hacoo"}, {"t": "HOKA \"Bondi 9\"", "p": "32€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJmk0", "f": "img/50.jpg", "s": "hacoo"}, {"t": "ASICS “Gel Pickax”", "p": "37€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJmAI", "f": "img/51.jpg", "s": "hacoo"}, {"t": "The North Face", "p": "46€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJmRp", "f": "img/52.jpg", "s": "hacoo"}, {"t": "ASICS \"Megablast\"", "p": "32€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJn88", "f": "img/53.jpg", "s": "hacoo"}, {"t": "The North Face “700”", "p": "25€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJnoU", "f": "img/54.jpg", "s": "hacoo"}, {"t": "VEJA “Rio”", "p": "30€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJnq9", "f": "img/55.jpg", "s": "hacoo"}, {"t": "PS5 Mando", "p": "43€", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJnH8", "f": "img/56.jpg", "s": "hacoo"}, {"t": "GUESS (riñonera)", "p": "20€", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJnYs", "f": "img/57.jpg", "s": "hacoo"}, {"t": "Guess", "p": "29€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJoff", "f": "img/58.jpg", "s": "hacoo"}, {"t": "The North Face", "p": "35€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJovY", "f": "img/59.jpg", "s": "hacoo"}, {"t": "ASICS “Gel NYC”", "p": "26€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJoMM", "f": "img/60.jpg", "s": "hacoo"}, {"t": "Nike “P6000”", "p": "32€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJp3q", "f": "img/61.jpg", "s": "hacoo"}, {"t": "NIKE \"Air Max TN Plus\"", "p": "31€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJpka", "f": "img/62.jpg", "s": "hacoo"}, {"t": "ADIDAS Samba OG", "p": "24€", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJpB6", "f": "img/63.jpg", "s": "hacoo"}, {"t": "Gorra Amiri Multicolor", "p": "", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJtb1", "f": "img/64.jpg", "s": "hacoo"}, {"t": "Camiseta Hoodrich Mujer", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJtrO", "f": "img/65.jpg", "s": "hacoo"}, {"t": "Airforce 1 Charms Pandora", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJtIw", "f": "img/66.jpg", "s": "hacoo"}, {"t": "Airforce 1 Black And White", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJtZe", "f": "img/67.jpg", "s": "hacoo"}, {"t": "AIRFORCE 1 07 40th beige y granate", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJufX", "f": "img/68.jpg", "s": "hacoo"}, {"t": "Cinturones Lacoste", "p": "", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJuwM", "f": "img/69.jpg", "s": "hacoo"}, {"t": "Gorra negra Stussy", "p": "", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJuNI", "f": "img/70.jpg", "s": "hacoo"}, {"t": "Nike Vapor Max Plus", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJv4t", "f": "img/71.jpg", "s": "hacoo"}, {"t": "Nike Airforce 1 Con Detalles Fosforitos", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJvle", "f": "img/72.jpg", "s": "hacoo"}, {"t": "Air Jordan 1 Low Og Sp Travis Scott Reverse Mocha", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJvC5", "f": "img/73.jpg", "s": "hacoo"}, {"t": "Deportivas Michael Kors Mujer", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJvST", "f": "img/74.jpg", "s": "hacoo"}, {"t": "Deportivas Balenciaga", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJw9C", "f": "img/75.jpg", "s": "hacoo"}, {"t": "Pantalon Essentials", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJwqn", "f": "img/76.jpg", "s": "hacoo"}, {"t": "Pantalon Burberry", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJwH6", "f": "img/77.jpg", "s": "hacoo"}, {"t": "Pantalon Corteiz", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJwXM", "f": "img/78.jpg", "s": "hacoo"}, {"t": "Pantalon Stone Island", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJxey", "f": "img/79.jpg", "s": "hacoo"}, {"t": "Pantalon Chandal Stone Island", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJxvj", "f": "img/80.jpg", "s": "hacoo"}, {"t": "Pantalon Off White", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJxM2", "f": "img/81.jpg", "s": "hacoo"}, {"t": "Pantalon Corto Under Armour", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJy2U", "f": "img/82.jpg", "s": "hacoo"}, {"t": "Camiseta Stone Island", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJyjO", "f": "img/83.jpg", "s": "hacoo"}, {"t": "Adidas Yezzy", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJykq", "f": "img/84.jpg", "s": "hacoo"}, {"t": "Camiseta Stone Island", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJyBd", "f": "img/85.jpg", "s": "hacoo"}, {"t": "Sandalias Hermes Mujer", "p": "", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJyRV", "f": "img/86.jpg", "s": "hacoo"}, {"t": "Sudadera Stussy Mujer", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJz8G", "f": "img/87.jpg", "s": "hacoo"}, {"t": "Adidas Campus", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJzpv", "f": "img/88.jpg", "s": "hacoo"}, {"t": "Conjunto Moncler", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJzX7", "f": "img/89.jpg", "s": "hacoo"}, {"t": "Adidas Yezzy", "p": "", "c": "Zapatillas", "u": "https://c.onlyaff.app/dNJAe1", "f": "img/90.jpg", "s": "hacoo"}, {"t": "cinturon DIOR", "p": "", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJAuN", "f": "img/91.jpg", "s": "hacoo"}, {"t": "Tejanos Mujer Stussy", "p": "25,88€", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJALw", "f": "img/92.jpg", "s": "hacoo"}, {"t": "Pantalon Dsquared2", "p": "", "c": "Pantalones", "u": "https://c.onlyaff.app/dNJB2h", "f": "img/93.jpg", "s": "hacoo"}, {"t": "Camiseta Corteiz", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJBj1", "f": "img/94.jpg", "s": "hacoo"}, {"t": "Camiseta Palm Angels", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJBzO", "f": "img/95.jpg", "s": "hacoo"}, {"t": "Conjunto Corteiz Varios Colores", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJBQS", "f": "img/96.jpg", "s": "hacoo"}, {"t": "Camiseta Amiri", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJC7V", "f": "img/97.jpg", "s": "hacoo"}, {"t": "Camiseta Stussy", "p": "", "c": "Ropa", "u": "https://c.onlyaff.app/dNJCoG", "f": "img/98.jpg", "s": "hacoo"}, {"t": "Camiseta Trapstar Con Impresion En La Espalda", "p": "9,56€", "c": "Ropa", "u": "https://c.onlyaff.app/dNJCFp", "f": "img/99.jpg", "s": "hacoo"}, {"t": "Calcetines Carhartt", "p": "4,26€", "c": "Accesorios", "u": "https://c.onlyaff.app/dNJCWs", "f": "img/100.jpg", "s": "hacoo"}].map((p, i) => ({ ...p, id: i }));
+const ORDEN = ["Todo", "Fútbol", "Zapatillas", "Ropa", "Pantalones", "Accesorios"];
+const TIENDAS = { hacoo: "Hacoo", cheapftball: "CheapFtball" };
+const CODIGO = document.querySelector(".valor-codigo").textContent;
+const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let filtro = "Todo";
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const normal = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+// Si el navegador sabe hacer View Transitions, los cambios se animan; si no, se aplican sin más.
+function transicion(cambio) {
+  if (!document.startViewTransition || sinMovimiento) { cambio(); return null; }
+  const t = document.startViewTransition(cambio);
+  // Si el usuario toca muy rápido, la transición anterior se corta: no es un error.
+  t.ready.catch(() => {});
+  t.updateCallbackDone.catch(() => {});
+  t.finished.catch(() => {});
+  return t;
+}
+
+// Las tarjetas aparecen escalonadas al entrar en pantalla.
+let llegadas = 0, reinicio;
+const mirador = new IntersectionObserver(entradas => entradas.forEach(e => {
+  if (!e.isIntersecting) return;
+  const card = e.target;
+  // Escalonado según su posición entre las que entran a la vez, no según su número en la lista.
+  const retraso = (llegadas++ % 8) * 45;
+  clearTimeout(reinicio); reinicio = setTimeout(() => { llegadas = 0; }, 120);
+  setTimeout(() => requestAnimationFrame(() => card.classList.add("ver")), retraso);
+  mirador.unobserve(card);
+}), { rootMargin: "0px 0px -40px 0px" });
+
+function contar(el, hasta) {
+  if (sinMovimiento) { el.textContent = hasta; return; }
+  const t0 = performance.now();
+  const paso = t => {
+    const k = Math.min(1, (t - t0) / 900);
+    el.textContent = Math.round(hasta * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+}
+
+function pintarFiltros() {
+  const hay = new Set(PRODUCTOS.map(p => p.c));
+  $("filtros").innerHTML = ORDEN.filter(c => c === "Todo" || hay.has(c)).map(c => {
+    const n = c === "Todo" ? PRODUCTOS.length : PRODUCTOS.filter(p => p.c === c).length;
+    return `<button class="chip" type="button" data-c="${c}" aria-pressed="${c === filtro}">${c} · ${n}</button>`;
+  }).join("");
+}
+
+function pintar() {
+  const q = normal($("buscar").value.trim());
+  const lista = PRODUCTOS.filter(p => (filtro === "Todo" || p.c === filtro) && (!q || normal(p.t).includes(q)));
+  $("cuenta").textContent = `${lista.length} producto${lista.length === 1 ? "" : "s"}`;
+  $("grid").innerHTML = lista.map((p, i) => `
+    <a class="card" href="${esc(p.u)}" data-id="${p.id}" data-orden="${i}" target="_blank" rel="noopener sponsored">
+      <div class="foto"><img src="${esc(p.f)}" alt="${esc(p.t)}" loading="lazy" decoding="async" width="360" height="360"><span class="insignia">${TIENDAS[p.s] || p.s}</span></div>
+      <div class="info">
+        <div class="tit">${esc(p.t)}</div>
+        <div class="fila"><span class="precio">${esc(p.p || "Ver precio")}</span><span class="flecha" aria-hidden="true">→</span></div>
+      </div>
+    </a>`).join("") || `<p class="vacio">No hay nada con “${esc($("buscar").value)}”. Prueba otra palabra.</p>`;
+  $("grid").querySelectorAll(".foto img").forEach(img => {
+    const listo = () => img.parentElement.classList.add("ok");
+    img.complete && img.naturalWidth ? listo() : img.addEventListener("load", listo, { once: true });
+  });
+  $("grid").querySelectorAll(".card").forEach(c => mirador.observe(c));
+}
+
+// Cambio de filtro o búsqueda: la rejilla se desvanece un instante y las nuevas tarjetas entran escalonadas.
+let cambiando;
+function cambiarLista() {
+  pintarFiltros();
+  if (sinMovimiento) { pintar(); return; }
+  clearTimeout(cambiando);
+  $("grid").classList.add("sale");
+  cambiando = setTimeout(() => { pintar(); $("grid").classList.remove("sale"); }, 140);
+}
+
+// Vista rápida: la foto de la tarjeta "vuela" hasta la ficha.
+let tarjetaAbierta = null;
+function abrir(card) {
+  const p = PRODUCTOS[card.dataset.id];
+  const rellenar = () => {
+    $("vFoto").src = p.f; $("vFoto").alt = p.t;
+    $("vTitulo").textContent = p.t;
+    $("vPrecio").textContent = p.p || "";
+    $("vTienda").textContent = `En ${TIENDAS[p.s] || p.s}`;
+    $("vComprar").href = p.u;
+    $("vComprar").textContent = `Comprar en ${TIENDAS[p.s] || p.s} →`;
+    card.querySelector("img").style.viewTransitionName = "";
+    $("vFoto").style.viewTransitionName = "foto";
+    $("vista").showModal();
+  };
+  tarjetaAbierta = card;
+  card.querySelector("img").style.viewTransitionName = "foto";
+  transicion(rellenar);
+}
+function cerrar() {
+  const card = tarjetaAbierta;
+  transicion(() => {
+    $("vista").close();
+    $("vFoto").style.viewTransitionName = "";
+    if (card) card.querySelector("img").style.viewTransitionName = "foto";
+  })?.finished.catch(() => {}).then(() => { if (card) card.querySelector("img").style.viewTransitionName = ""; });
+  if (!document.startViewTransition && card) card.querySelector("img").style.viewTransitionName = "";
+}
+
+$("grid").addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if (!card) return;
+  e.preventDefault();
+  abrir(card);
+});
+$("cerrar").addEventListener("click", cerrar);
+$("vista").addEventListener("click", e => { if (e.target === $("vista")) cerrar(); });
+$("vista").addEventListener("cancel", e => { e.preventDefault(); cerrar(); });
+
+$("filtros").addEventListener("click", e => {
+  const b = e.target.closest(".chip");
+  if (!b || b.dataset.c === filtro) return;
+  filtro = b.dataset.c;
+  cambiarLista();
+  const arribaGrid = $("grid").getBoundingClientRect().top + scrollY - 150;
+  if (scrollY > arribaGrid) scrollTo({ top: arribaGrid });
+});
+let pausa;
+$("buscar").addEventListener("input", () => { clearTimeout(pausa); pausa = setTimeout(cambiarLista, 180); });
+
+document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(CODIGO); } catch (e) {}
+  const antes = b.textContent;
+  b.textContent = "¡Copiado!";
+  $("aviso").classList.add("si");
+  setTimeout(() => { $("aviso").classList.remove("si"); b.textContent = antes; }, 1600);
+}));
+
+addEventListener("scroll", () => {
+  $("cabecera").classList.toggle("scroll", scrollY > 10);
+  $("arriba").classList.toggle("si", scrollY > 900);
+}, { passive: true });
+$("arriba").addEventListener("click", () => scrollTo({ top: 0 }));
+
+// ---- Contador de seguidores ----
+const REDES = {
+  tiktok: { nombre: "TikTok", url: u => `https://www.tiktok.com/@${u}`, color: "#25f4ee",
+    svg: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg>' },
+  youtube: { nombre: "YouTube", url: u => `https://www.youtube.com/@${u}`, color: "#ff0033",
+    svg: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M10 8.5v7l6-3.5z"/></svg>' },
+  instagram: { nombre: "Instagram", url: u => `https://www.instagram.com/${u}`, color: "#e1306c",
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="#fff"/></svg>' },
+};
+let SEGUIDORES = {"redes": [{"red": "tiktok", "usuario": "sergioglez.pd", "seguidores": 37100}, {"red": "youtube", "usuario": "sergioglez.pd21", "seguidores": 22500}, {"red": "instagram", "usuario": "sergioglez.pd", "seguidores": 10876}], "actualizado": "2026-11-05 18:57"};
+// Punto de miles siempre (toLocaleString("es-ES") deja "3120" sin punto).
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const mostrado = new Map();  // último número pintado en cada elemento, para animar desde ahí
+
+function animarNumero(el, hasta) {
+  const desde = mostrado.get(el) ?? 0;
+  mostrado.set(el, hasta);
+  if (sinMovimiento || desde === hasta) { el.textContent = fmt(hasta); return; }
+  const t0 = performance.now(), dur = desde ? 900 : 1500;
+  const paso = t => {
+    const k = Math.min(1, (t - t0) / dur);
+    el.textContent = fmt(Math.round(desde + (hasta - desde) * (1 - Math.pow(1 - k, 3))));
+    if (k < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+}
+
+function pintarSeguidores() {
+  // Una red con 0 es que aún no tiene número (p. ej. Instagram sin rellenar): no se enseña.
+  const redes = (SEGUIDORES?.redes || []).filter(r => REDES[r.red] && r.seguidores > 0);
+  if (!redes.length) return;
+  $("comunidad").hidden = false;
+  const total = redes.reduce((s, r) => s + r.seguidores, 0);
+  const max = Math.max(...redes.map(r => r.seguidores), 1);
+  if (!$("redes").children.length) {
+    $("iconos").innerHTML = redes.map(r => `<span class="${r.red}">${REDES[r.red].svg}</span>`).join("");
+    $("redes").innerHTML = redes.map(r => `
+      <a class="red" href="${REDES[r.red].url(encodeURIComponent(r.usuario))}" target="_blank" rel="noopener">
+        <span class="ico ${r.red}">${REDES[r.red].svg}</span>
+        <span><b>${REDES[r.red].nombre}</b><small>@${esc(r.usuario)}</small></span>
+        <span class="num" data-red="${r.red}">0</span>
+        <span class="barra-red"><i data-red="${r.red}" style="background:${REDES[r.red].color}"></i></span>
+      </a>`).join("");
+  }
+  animarNumero($("cifraTotal"), total);
+  redes.forEach(r => {
+    animarNumero($("redes").querySelector(`.num[data-red="${r.red}"]`), r.seguidores);
+    $("redes").querySelector(`i[data-red="${r.red}"]`).style.setProperty("--k", r.seguidores / max);
+  });
+}
+
+$("total").addEventListener("click", () => {
+  const abrir = !$("desglose").classList.contains("abierto");
+  $("desglose").classList.toggle("abierto", abrir);
+  $("total").setAttribute("aria-expanded", abrir);
+});
+
+// "En directo": al entrar y luego cada minuto se vuelve a leer seguidores.json (lo actualiza GitHub cada 20 min).
+async function refrescarSeguidores() {
+  try {
+    const r = await fetch(`seguidores.json?t=${Date.now()}`, { cache: "no-store" });
+    if (r.ok) { SEGUIDORES = await r.json(); pintarSeguidores(); }
+  } catch (e) {}
+}
+pintarSeguidores();
+refrescarSeguidores();
+setInterval(refrescarSeguidores, 60000);
+
+pintarFiltros();
+pintar();
+contar($("nTotal"), PRODUCTOS.length);
+contar($("nFutbol"), PRODUCTOS.filter(p => p.c === "Fútbol").length);
+</script>
+</body>
+</html>
