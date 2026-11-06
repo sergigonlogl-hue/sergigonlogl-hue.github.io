@@ -536,7 +536,7 @@ function abrirDesdeEnlace() {
 }
 
 // ---- Contacto (Formsubmit lo reenvía por email; sin dirección configurada la caja no sale) ----
-const CONTACTO = "";
+const CONTACTO = "https://formsubmit.co/ajax/sergiogonlop.pd@gmail.com";
 if (CONTACTO) {
   $("contacto").hidden = false;
   $("pieContacto").hidden = false;
@@ -610,7 +610,7 @@ const REDES = {
   instagram: { nombre: "Instagram", url: u => `https://www.instagram.com/${u}`, color: "#e1306c",
     svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="#fff"/></svg>' },
 };
-let SEGUIDORES = {"redes": [{"red": "tiktok", "usuario": "sergioglez.pd", "seguidores": 37100}, {"red": "youtube", "usuario": "sergioglez.pd21", "seguidores": 22500}, {"red": "instagram", "usuario": "sergioglez.pd", "seguidores": 10876}], "actualizado": "2026-11-05 18:57"};
+let SEGUIDORES = {"redes": [{"red": "tiktok", "usuario": "sergioglez.pd", "seguidores": 37300}, {"red": "youtube", "usuario": "sergioglez.pd21", "seguidores": 22500}, {"red": "instagram", "usuario": "sergioglez.pd", "seguidores": 10876}], "actualizado": "2026-11-06 06:21 UTC"};
 // Punto de miles siempre (toLocaleString("es-ES") deja "3120" sin punto).
 const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const mostrado = new Map();  // último número pintado en cada elemento, para animar desde ahí
