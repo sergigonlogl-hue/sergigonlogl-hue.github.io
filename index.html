@@ -558,6 +558,11 @@ if (CONTACTO) {
         }),
       });
       const j = await r.json().catch(() => ({}));
+      // Antes de activar, Formsubmit responde success "false" con "needs Activation" aunque sí manda el email de activación.
+      if (/activat/i.test(j.message || "")) {
+        $("estado").className = "estado ok"; $("estado").textContent = "Formulario pendiente de activar: revisa el email de Formsubmit.";
+        return;
+      }
       if (!r.ok || String(j.success) === "false") throw new Error(j.message || r.status);
       f.reset();
       $("estado").className = "estado ok"; $("estado").textContent = "¡Enviado! Te respondo lo antes posible 🙌";
